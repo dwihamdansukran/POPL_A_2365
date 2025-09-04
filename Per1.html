@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id" class="h-100">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sederhana namun Keren</title>
+  <meta name="description" content="Contoh halaman HTML sederhana namun keren—ringan, responsif, dan mudah dikembangkan." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#0ea5e9; /* sky-500 */
+      --bg2:#8b5cf6; /* violet-500 */
+      --bg3:#14b8a6; /* teal-500 */
+      --text:#0b1020;
+      --muted:#5c6b82;
+      --card: rgba(255,255,255,.16);
+      --card-stroke: rgba(255,255,255,.25);
+      --btn:#111827;
+      --btn-text:#f9fafb;
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    @media (prefers-color-scheme:dark){
+      :root{ --text:#e5e7eb; --muted:#9ca3af; --card:rgba(255,255,255,.08); --card-stroke:rgba(255,255,255,.12); --btn:#f3f4f6; --btn-text:#111827; }
+    }
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
+    body{
+      font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji','Segoe UI Emoji', 'Segoe UI Symbol';
+      margin:0; color:var(--text); background:#0f1220; overflow-x:hidden;
+    }
+    /* Animated gradient background */
+    .bg{
+      position:fixed; inset:0; z-index:-1; filter:saturate(120%);
+      background: radial-gradient(1200px 800px at 10% 10%, rgba(20,184,166,.35), transparent 70%),
+                  radial-gradient(1000px 600px at 90% 20%, rgba(14,165,233,.35), transparent 70%),
+                  radial-gradient(900px 700px at 50% 90%, rgba(139,92,246,.35), transparent 70%);
+    }
+    .bg::after{ /* slow moving sheen */
+      content:""; position:absolute; inset:-20%;
+      background: conic-gradient(from 0deg, rgba(255,255,255,.06), rgba(255,255,255,0) 40%, rgba(255,255,255,.06));
+      animation: spin 18s linear infinite;
+      mix-blend-mode: overlay; pointer-events:none;
+    }
+    @keyframes spin{ to{ transform: rotate(360deg); } }
+
+    header{
+      display:flex; gap:.75rem; justify-content:space-between; align-items:center;
+      max-width:1100px; margin:0 auto; padding:1rem 1.25rem;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    }
+    .brand{ display:flex; align-items:center; gap:.6rem; font-weight:800; letter-spacing:.3px; }
+    .logo{ width:34px; height:34px; border-radius:10px; background:linear-gradient(135deg, var(--bg1), var(--bg2)); box-shadow: var(--shadow); position:relative; }
+    .logo::after{ content:""; position:absolute; inset:2px; border-radius:8px; background:linear-gradient(135deg, rgba(255,255,255,.85), transparent 70%); mix-blend-mode:overlay; }
+    nav a{ text-decoration:none; color:var(--muted); font-weight:600; margin:0 .6rem; padding:.4rem .6rem; border-radius:10px; transition:.25s ease; }
+    nav a:hover{ color:var(--text); background:rgba(255,255,255,.08); }
+
+    .container{ max-width:1100px; margin:0 auto; padding:3rem 1.25rem 5rem; }
+
+    .hero{ display:grid; grid-template-columns:1.1fr .9fr; gap:2rem; align-items:center; }
+    @media (max-width:900px){ .hero{ grid-template-columns:1fr; padding-top:1rem; } }
+
+    .card{
+      background:var(--card); border:1px solid var(--card-stroke); border-radius:22px; padding:2rem; box-shadow: var(--shadow);
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    }
+
+    h1{ font-size:clamp(2.2rem, 5vw, 4rem); line-height:1.05; margin:.25rem 0 1rem; letter-spacing:-.02em; }
+    p.lead{ font-size:clamp(1rem, 1.6vw, 1.25rem); color:var(--muted); margin:0 0 1.2rem; }
+
+    .cta{ display:flex; gap:.75rem; flex-wrap:wrap; margin-top:1.2rem; }
+    .btn{ border:none; border-radius:14px; padding:.85rem 1.1rem; font-weight:700; cursor:pointer; transition: transform .08s ease, box-shadow .2s ease, background .2s ease; }
+    .btn-primary{ background:var(--btn); color:var(--btn-text); box-shadow: var(--shadow); }
+    .btn-primary:hover{ transform: translateY(-2px); }
+    .btn-ghost{ background:transparent; color:var(--text); border:1px solid var(--card-stroke); }
+
+    /* Feature list */
+    .features{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.25rem; }
+    .feature{ padding:1rem; border-radius:16px; border:1px dashed var(--card-stroke); background:linear-gradient(180deg, rgba(255,255,255,.06), transparent); }
+    .feature h3{ margin:.4rem 0 .25rem; font-size:1rem; }
+    .feature p{ margin:0; color:var(--muted); font-size:.95rem; }
+    @media (max-width:900px){ .features{ grid-template-columns:1fr; } }
+
+    /* Showcase box */
+    .showcase{ position:relative; padding:1.5rem; border-radius:20px; border:1px solid var(--card-stroke); background:linear-gradient(160deg, rgba(255,255,255,.12), rgba(255,255,255,.02)); overflow:hidden; }
+    .code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:.95rem; color:var(--text); }
+    .glow{ position:absolute; inset: -40%; background: radial-gradient(500px 300px at var(--mx,60%) var(--my,40%), rgba(255,255,255,.2), transparent 60%); pointer-events:none; transition: 80ms linear; }
+
+    footer{ max-width:1100px; margin:0 auto; padding:1rem 1.25rem 2.5rem; color:var(--muted); font-size:.95rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
+    .social a{ margin-right:.6rem; text-decoration:none; color:var(--muted); }
+
+    .kbd{ display:inline-block; padding:.2rem .45rem; border-radius:8px; border:1px solid var(--card-stroke); background:rgba(255,255,255,.06); font-size:.85rem; }
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <header>
+    <div class="brand" aria-label="Brand">
+      <div class="logo" aria-hidden="true"></div>
+      <span>Sederhana<span style="opacity:.6">•</span>Keren</span>
+    </div>
+    <nav>
+      <a href="#fitur">Fitur</a>
+      <a href="#contoh">Contoh Kode</a>
+      <a href="#mulai">Mulai</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="card">
+        <span class="kbd">HTML</span>
+        <h1>Halaman sederhana, rasa premium.</h1>
+        <p class="lead">Template ringan untuk memulai proyek atau portfolio. Tidak pakai library berat—hanya HTML, CSS, dan sedikit JS untuk interaksi.</p>
+        <div class="cta">
+          <button class="btn btn-primary" id="toggleTheme" aria-pressed="false">Toggle Tema</button>
+          <a class="btn btn-ghost" href="#contoh">Lihat Kode</a>
+        </div>
+        <div id="fitur" class="features" aria-label="Daftar fitur">
+          <div class="feature">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l2.09 6.26H21l-5.17 3.76L16.91 21 12 16.99 7.09 21l1.08-7.98L3 9.26h6.91L12 3z" stroke="currentColor" stroke-width="1.5"/></svg>
+            <h3>Estetis</h3>
+            <p>Glassmorphism, gradient dinamis, dan bayangan lembut.</p>
+          </div>
+          <div class="feature">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14m7-7H5" stroke="currentColor" stroke-width="1.5"/></svg>
+            <h3>Ringan</h3>
+            <p>Satu file, mudah diubah sesuai kebutuhan.</p>
+          </div>
+          <div class="feature">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M7 12h10M9 17h6" stroke="currentColor" stroke-width="1.5"/></svg>
+            <h3>Responsif</h3>
+            <p>Layout fleksibel untuk layar kecil hingga besar.</p>
+          </div>
+        </div>
+      </div>
+      <div class="showcase" id="contoh" aria-label="Contoh kode">
+        <div class="glow" aria-hidden="true"></div>
+        <pre class="code"><code>&lt;button class="btn btn-primary"&gt;Klik Aku&lt;/button&gt;
+&lt;!-- Gaya tombol ada di &lt;style&gt; di atas --&gt;</code></pre>
+      </div>
+    </section>
+
+    <section id="mulai" style="margin-top:3rem" class="card">
+      <h2 style="margin:.25rem 0 1rem; font-size:clamp(1.4rem, 2.6vw, 2rem);">Cara pakai</h2>
+      <ol>
+        <li>Salin file ini sebagai <strong>index.html</strong>.</li>
+        <li>Edit teks/warna sesuai selera.</li>
+        <li>Buka di browser—selesai!</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> Kamu. Semua hak dilindungi yang penting.</span>
+    <div class="social">
+      <a href="#" aria-label="GitHub">GitHub</a>
+      <a href="#" aria-label="Twitter">Twitter</a>
+      <a href="#" aria-label="Instagram">Instagram</a>
+    </div>
+  </footer>
+
+  <script>
+    // Tahun dinamis
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Toggle tema terang/gelap via class pada body
+    const btn = document.getElementById('toggleTheme');
+    const KEY = 'pref-theme';
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    function applyTheme(theme){
+      document.documentElement.dataset.theme = theme; // hook jika mau dikembangkan
+      if(theme==='light'){
+        document.body.classList.add('light');
+        document.body.classList.remove('dark');
+      } else {
+        document.body.classList.add('dark');
+        document.body.classList.remove('light');
+      }
+    }
+
+    // Simpel: simpan preferensi di localStorage
+    const saved = localStorage.getItem(KEY);
+    applyTheme(saved || (prefersDark ? 'dark' : 'light'));
+
+    btn.addEventListener('click', () => {
+      const current = document.body.classList.contains('light') ? 'light' : 'dark';
+      const next = current === 'light' ? 'dark' : 'light';
+      localStorage.setItem(KEY, next);
+      applyTheme(next);
+      btn.setAttribute('aria-pressed', String(next==='dark'));
+    });
+
+    // Efek spotlight mengikuti kursor pada showcase
+    const sc = document.querySelector('.showcase');
+    const glow = document.querySelector('.glow');
+    sc.addEventListener('pointermove', (e) => {
+      const r = sc.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width * 100;
+      const y = (e.clientY - r.top) / r.height * 100;
+      glow.style.setProperty('--mx', x + '%');
+      glow.style.setProperty('--my', y + '%');
+    });
+  </script>
+</body>
+</html>
